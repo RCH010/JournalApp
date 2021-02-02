@@ -1,0 +1,72 @@
+.auth__main {
+    align-items: center;
+    background-color: $primary;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.auth__box-container {
+    background-color: $white;
+    box-shadow: 0 .2em $dark-grey;
+    border-radius: .4em;
+    padding: 20px;
+    width: 240px;
+}
+
+.auth__title{
+    color: darken($color: $primary, $amount: 20);
+    cursor: default;
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.auth__input{
+    color: $dark-grey;
+    border: 0;
+    border-bottom: 1px solid $light-grey;
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    height: 1.8em;
+    width: 100%;
+
+    transition: border-bottom .4s ease-in;
+
+    &:focus {
+        border-bottom: 1px solid $primary;
+        outline: none;
+    }
+}
+
+.auth__social-networks{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.auth__social-networks-title{
+    color: darken($color: $light-grey, $amount: 20);
+    cursor: default;
+    font-size: .8em;
+}
+.auth__alert-error{
+    background-color: $alert;
+    border-radius: .4em;
+    color: $dark-grey;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+    padding: .4em;
+}
+.auth__new-account{
+    color: darken($color: $light-grey, $amount: 20);
+    display: block;
+    font-size: .9em;
+    text-align: end;
+}
