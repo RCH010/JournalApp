@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import { googleAuthProvider, firebase } from "../firebase/firebaseConfig";
 import { types } from "../types/types"
 import { finishLoading, startLoading } from "./ui";
@@ -13,7 +14,7 @@ export const startLoginWithEmailPassword = (email, password) => {
                 );
             })
             .catch(e => {
-                console.log(e);
+                Swal.fire('Something went wrong...', e.message, 'error')
             })
             .finally(() => {
                 dispatch(finishLoading())
@@ -31,10 +32,10 @@ export const startRegisterWithEmailPasswordName = (email, password, name) => {
                 )
             })
             .catch( e => {
-                console.log(e);
+                Swal.fire('Something went wrong...', e.message, 'error')
             })
     }
-}
+};
 
 export const startGoogleLogin = () => {
     return (dispatch) => {
@@ -44,8 +45,8 @@ export const startGoogleLogin = () => {
                     login(user.uid, user.displayName, user.email)
                 )
             });
-    }
-}
+    };
+};
 
 export const login = (uid, displayName, email) => ( {
     type: types.login,
@@ -54,4 +55,18 @@ export const login = (uid, displayName, email) => ( {
         displayName,
         email
     }
-})
+});
+
+// logout asincrono, con firebase
+export const startLogout = () => {
+    return async(dispatch) => {
+        await firebase.auth().signOut();
+        dispatch(logout());
+    }
+}
+
+export const logout = () => {
+    return {
+        type: types.logout
+    }
+}
