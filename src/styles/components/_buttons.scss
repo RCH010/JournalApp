@@ -39,6 +39,26 @@
     }
 }
 
+.btn-danger {
+    background-color: $alertBtn;
+    border-radius: .2em;
+
+    &:disabled {
+        background-color: lighten($color: $alertBtn, $amount: 15)
+    }
+    &:disabled:hover {
+        background-color: lighten($color: $alertBtn, $amount: 15)
+    }
+    &:hover {
+        background-color: darken($color: $alertBtn, $amount: 4);
+        box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+    }
+    &:active {
+        background-color: darken($color: $alertBtn, $amount: 15);
+        box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+    }
+}
+
 .btn-block {
     width: 100%;
 }

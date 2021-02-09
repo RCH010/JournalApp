@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2'
 import { googleAuthProvider, firebase } from "../firebase/firebaseConfig";
 import { types } from "../types/types"
+import { notesLogout } from './notes';
 import { finishLoading, startLoading } from "./ui";
 
 //  CUANDO ES UNA TAREA ASINCRONA, SE NECESITA RETORNAR UN CALLBACK
@@ -62,6 +63,7 @@ export const startLogout = () => {
     return async(dispatch) => {
         await firebase.auth().signOut();
         dispatch(logout());
+        dispatch(notesLogout());
     }
 }
 

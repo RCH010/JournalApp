@@ -48,3 +48,11 @@
     box-shadow: 4px 4px lighten($color:$dark-grey, $amount: 60);
     height: 150px;
 }
+.notes__buttons-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.notes__buttons-area button {
+    width: 30%;
+}

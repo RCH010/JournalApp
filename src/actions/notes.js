@@ -20,6 +20,7 @@ export const startNewNote = () => {
 
         const docRef = await db.collection(`${uid}/journal/notes`).add(newNote);
         dispatch(activeNote(docRef.id, newNote));
+        dispatch(addNewNote(docRef.id, newNote));
     }
 }
 // Action to set a note in the state
@@ -32,6 +33,14 @@ export const activeNote = (id, note) => (
         }
     }
 )
+
+export const addNewNote = (id, note) => ({
+    type: types.notesAddNew,
+    payload: {
+        id,
+        ...note
+    }
+})
 
 export const startLoadingNotes = (uid) => {
     return async (dispatch) => {
@@ -81,11 +90,12 @@ export const refreshNote = (id, note) => ({
     }
 })
 
-//
+// action that calls ./helpers/fileUpload to upload the image and returns
+//  image url, then we call action startSaveNote so the db is updated
 export const startUploadingPicture = (file) => {
     return async (dispatch, getState) => {
         const {active: activeNote} = getState().notes;
-
+        // UI feedback
         Swal.fire({
             title: 'Uploading...',
             text: 'Please wait.',
@@ -96,11 +106,31 @@ export const startUploadingPicture = (file) => {
             }
         }); 
         const fileUrl = await fileUpload(file);
-        console.log(activeNote);
-        activeNote.url = fileUrl;
         
+        activeNote.url = fileUrl;
         dispatch(startSaveNote(activeNote));
 
         Swal.close();
     }
 }
+
+//
+export const startDeleting = (noteId) => {
+    return async (dispatch, getState) => {
+        const {uid} = getState().auth;
+        // deleted from firestore
+        await db.doc(`${uid}/journal/notes/${noteId}`).delete();
+
+        //now deleted from store
+        dispatch(deleteNote(noteId));
+    }
+}
+
+export const deleteNote = (noteId) => ({
+    type: types.notesDelete,
+    payload: noteId,
+})
+
+export const notesLogout = () => ({
+    type: types.notesLogoutCleaning,
+})
