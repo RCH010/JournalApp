@@ -1,15 +1,47 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { startSaveNote, startUploadingPicture } from '../../actions/notes'
 
 export const NotesAppBar = () => {
+    
+    const dispatch = useDispatch();
+    const {active} = useSelector(state => state.notes)
+
+    const handleSave = () => {
+        dispatch(startSaveNote(active));
+    }
+
+    const handlePictureUpload = () => {
+        document.querySelector('#fileSelector').click(); 
+    }
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        
+        if(file) {
+            dispatch(startUploadingPicture(file));
+        }
+    }
+
     return (
         <div className='notes__app-bar'>
             <span>28 de Febrero, 2020</span>
-
+            <input 
+                id='fileSelector'
+                type='file'
+                style={{display: 'none'}}
+                onChange={handleFileChange}
+            />
             <div>
-                <button className='btn'>
-                    Picture
+                <button  
+                    className='btn'
+                    onClick={handlePictureUpload}
+                >
+                    Add Picture
                 </button>
-                <button className='btn'>
+                <button 
+                    className='btn'
+                    onClick={handleSave}
+                >
                     Save
                 </button>
             </div>
