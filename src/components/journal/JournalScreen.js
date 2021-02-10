@@ -11,7 +11,6 @@ export const JournalScreen = () => {
     return (
         <div className='journal__main-content'>
             <Sidebar />
-
             <main>
                 {
                     (active) 
