@@ -2,7 +2,7 @@
 // in claudinary
 
 export const fileUpload = async (file) => {
-    const cloudinaryURL = 'https://api.cloudinary.com/v1_1/castellanos/upload';
+    const cloudinaryURL = process.env.REACT_APP_CLOUDINARYURL;
 
     const formData = new FormData();
     formData.append('upload_preset', 'reactJournalApp');
@@ -17,7 +17,8 @@ export const fileUpload = async (file) => {
             const cloudResp = await resp.json();
             return cloudResp.secure_url;
         }else {
-            throw await resp.json() //seria error de clodinary
+            return null;
+            // throw await resp.json() //seria error de clodinary
         }
     } catch (error) {
         console.log(error);
